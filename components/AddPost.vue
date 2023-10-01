@@ -87,7 +87,7 @@ const formData = ref({
 const confirmAdd = async () => {
   const { data, error } = await supabase
   .from('posts')
-  .insert([formData])
+  .insert([formData.value])
   .select();
   if (!error) {
     emit('closeAdd');
