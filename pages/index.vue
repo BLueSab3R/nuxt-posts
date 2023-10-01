@@ -37,7 +37,7 @@
     @closeDelete="closeDelete"
     :selectedPost="selectedPost"
   />
-  <AddPost :ids="ids" @closeAdd="closeAdd" v-if="isOpenAdd" />
+  <AddPost @closeAdd="closeAdd" v-if="isOpenAdd" />
 </template>
 
 <script setup>
@@ -51,13 +51,9 @@ const { data: posts } = await useAsyncData('posts', async () => {
   return data;
 });
 
-const arrIds = [];
-for (const post in posts) {
-  arrIds.push(posts[post]);
-}
-const ids = arrIds[3].map((posts) => posts.id);
 
-console.log(ids);
+
+
 const openEdit = async (user) => {
   selectedPost.value = user;
   isOpen.value = true;

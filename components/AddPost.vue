@@ -37,6 +37,30 @@
           <label class="mr-2">Phone:</label>
           <input v-model="formData.phone" type="text" placeholder="new phone" />
         </li>
+        <li>
+          <label class="mr-2">Street:</label>
+          <input v-model="formData.street" type="text" placeholder="new street" />
+        </li>
+        <li>
+          <label class="mr-2">Suite:</label>
+          <input v-model="formData.suite" type="text" placeholder="new suite" />
+        </li>
+        <li>
+          <label class="mr-2">Zipcode:</label>
+          <input v-model="formData.zipcode" type="text" placeholder="new Zipcode" />
+        </li>
+        <li>
+          <label class="mr-2">Company name:</label>
+          <input v-model="formData.companyName" type="text" placeholder="new Company name" />
+        </li>
+        <li>
+          <label class="mr-2">Bs:</label>
+          <input v-model="formData.bs" type="text" placeholder="new bs" />
+        </li>
+        <li>
+          <label class="mr-2">Catch phrase:</label>
+          <input v-model="formData.catchPhrase" type="text" placeholder="new catch phrase" />
+        </li>
       </ul>
       <button @click="confirmAdd" class="mt-20">Confirm</button>
     </div>
@@ -44,38 +68,37 @@
 </template>
 
 <script setup>
-const client = useSupabaseClient();
+const supabase = useSupabaseClient();
 const emit = defineEmits(['closeAdd']);
-const props = defineProps(['ids']);
 const formData = ref({
   username: '',
   name: '',
   email: '',
   website: '',
   city: '',
-  phone: '',
+  phone: '',  
+  street:'',
+  suite:'',
+  zipcode:'',
+  companyName:'',
+  bs:'',
+  catchPhrase:'',
 });
-const handleBackgroundClick = (event) => {
-  if (event.target === event.currentTarget) {
-    emit('closeAdd');
-  }
-};
-const generateUniqueId = () => {
-  let newId = null;
-  do {
-    newId = Math.floor(Math.random() * 100);
-  } while (props.ids.some((item) => item.id === newId));
-  return newId;
-};
 const confirmAdd = async () => {
-  const newId = generateUniqueId();
-  formData.id = newId;
-  const { data, error } = await client.from('posts').insert([formData.value]).select();
+  const { data, error } = await supabase
+  .from('posts')
+  .insert([formData])
+  .select();
   if (!error) {
     emit('closeAdd');
     location.reload();
   } else {
     console.log(error);
+  }
+};
+const handleBackgroundClick = (event) => {
+  if (event.target === event.currentTarget) {
+    emit('closeAdd');
   }
 };
 </script>
