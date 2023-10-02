@@ -1,14 +1,10 @@
 <template>
-  <div
-    @click="handleBackgroundClick"
-    class="fixed flex flex-col items-center justify-center max-h-screen inset-0 overflow-y-auto bg-black bg-opacity-50"
-  >
-    <div class="bg-white flex flex-col text-black w-300 rounded-lg relative">
+  <div @click="handleBackgroundClick"
+    class="fixed flex flex-col items-center justify-center max-h-screen inset-0 overflow-y-auto bg-black bg-opacity-50">
+    <div class="bg-white flex flex-col text-black p-40 rounded-lg relative">
 
-      <button
-        @click="$emit('closeEdit')"
-        class="absolute top-2 right-2 rounded-md border-red-400 bg-red-400 border-solid text-xl hover:bg-red-200 border-2"
-      >
+      <button @click="$emit('closeEdit')"
+        class="absolute top-2 right-2 rounded-md border-red-400 bg-red-400 border-solid text-xl hover:bg-red-200 border-2">
         Close
       </button>
 
@@ -38,14 +34,14 @@
           <input type="text" v-model="selectedPost.phone" placeholder="new phone" />
         </li>
       </ul>
-      <button class="mt-20" @click="updatePost">Confirm</button>
+      <button class="flex mt-20 justify-center" @click="updatePost">Confirm</button>
     </div>
   </div>
 </template>
 
 <script setup>
 const client = useSupabaseClient();
-const emit = defineEmits(['closeEdit']);
+const emit = defineEmits(['closeEdit', 'updatePosts']);
 const props = defineProps(['selectedPost']);
 const handleBackgroundClick = (event) => {
   if (event.target === event.currentTarget) {
@@ -64,9 +60,8 @@ const updatePost = async () => {
     .from('posts')
     .update(updatedData)
     .eq('id', props.selectedPost.id);
-
   if (!error) {
-    emit('closeEdit');
+    emit('updatePosts', 'closeEdit');
   } else {
     console.error(error);
   }

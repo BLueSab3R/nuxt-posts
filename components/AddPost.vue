@@ -1,14 +1,10 @@
 <template>
-  <div
-    @click="handleBackgroundClick"
-    class="fixed flex flex-col items-center justify-center max-h-screen inset-0 overflow-y-auto bg-black bg-opacity-50"
-  >
+  <div @click="handleBackgroundClick"
+    class="fixed flex flex-col items-center justify-center max-h-screen inset-0 overflow-y-auto bg-black bg-opacity-50">
     <div class="bg-white flex flex-col text-black w-300 rounded-lg relative">
       <h3 class="flex justify-center text-xl">Add new post</h3>
-      <button
-        @click="$emit('closeAdd')"
-        class="absolute top-2 right-2 rounded-md border-red-400 bg-red-400 border-solid text-xl hover:bg-red-200 border-2"
-      >
+      <button @click="$emit('closeAdd')"
+        class="absolute top-2 right-2 rounded-md border-red-400 bg-red-400 border-solid text-xl hover:bg-red-200 border-2">
         Close
       </button>
 
@@ -51,7 +47,7 @@
         </li>
         <li>
           <label class="mr-2">Company name:</label>
-          <input v-model="formData.companyName" type="text" placeholder="new Company name" />
+          <input v-model="formData.company_name" type="text" placeholder="new Company name" />
         </li>
         <li>
           <label class="mr-2">Bs:</label>
@@ -69,29 +65,29 @@
 
 <script setup>
 const supabase = useSupabaseClient();
-const emit = defineEmits(['closeAdd']);
+const emit = defineEmits(['closeAdd', 'updatePosts']);
 const formData = ref({
   username: '',
   name: '',
   email: '',
   website: '',
   city: '',
-  phone: '',  
-  street:'',
-  suite:'',
-  zipcode:'',
-  companyName:'',
-  bs:'',
-  catchPhrase:'',
+  phone: '',
+  street: '',
+  suite: '',
+  zipcode: '',
+  company_name: '',
+  bs: '',
+  catchPhrase: '',
 });
 const confirmAdd = async () => {
   const { data, error } = await supabase
-  .from('posts')
-  .insert([formData.value])
-  .select();
+    .from('posts')
+    .insert([formData.value])
+    .select();
   if (!error) {
-    emit('closeAdd');
-    location.reload();
+    emit('closeAdd')
+    emit('updatePosts');
   } else {
     console.log(error);
   }
