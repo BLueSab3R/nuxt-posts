@@ -8,7 +8,9 @@
     </svg>
     <ul>
       <li v-for="user in posts" :key="user.id">
-        <Post :user="user" @openEdit="openEdit" @openDelete="openDelete" @closeDelete="closeDelete" />
+        <NuxtLink :to="`/${user.id}`" key="`/${user.id}`">
+          <Post :user="user" @openEdit="openEdit" @openDelete="openDelete" @closeDelete="closeDelete" />
+        </NuxtLink>
       </li>
     </ul>
   </div>
