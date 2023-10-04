@@ -56,14 +56,16 @@ const posts = ref([]);
 const client = useSupabaseClient();
 const isShowed = ref(true);
 const { data } = await useAsyncData('posts', async () => {
-    const { data } = await client.from('posts').select();
+    const { data } = await client.from('posts').select().eq('id', +route.params.id);
     posts.value = data;
+    console.log(posts.value);
 });
 const closeData = () => {
     isShowed.value = false
 }
-const post = computed(() => {
-    return posts.value.find((post) => post.id === Number(route.params.id));
-})
+
+// const post = computed(() => {
+//     return posts.value.find((post) => post.id === +route.params.id);
+// })
 </script>
   

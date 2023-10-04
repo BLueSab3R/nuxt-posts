@@ -1,7 +1,7 @@
 <template>
   <div @click="handleBackgroundClick"
     class="fixed flex flex-col items-center justify-center max-h-screen inset-0 overflow-y-auto bg-black bg-opacity-50">
-    <div class="bg-white flex flex-col text-black w-300 rounded-lg relative">
+    <div class="bg-white flex flex-col text-black w-1/2	 rounded-lg relative">
       <h3 class="flex justify-center text-xl">Add new post</h3>
       <button @click="$emit('closeAdd')"
         class="absolute top-2 right-2 rounded-md border-red-400 bg-red-400 border-solid text-xl hover:bg-red-200 border-2">

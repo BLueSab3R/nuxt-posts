@@ -8,9 +8,7 @@
     </svg>
     <ul>
       <li v-for="user in posts" :key="user.id">
-        <NuxtLink :to="`/post/${user.id}`" key="`/${user.id}`">
-          <Post :user="user" @openEdit="openEdit" @openDelete="openDelete" @closeDelete="closeDelete" />
-        </NuxtLink>
+        <Post :user="user" @openEdit="openEdit" @openDelete="openDelete" @closeDelete="closeDelete" />
       </li>
     </ul>
   </div>
@@ -27,11 +25,8 @@ const isOpenAdd = ref(false);
 const selectedPost = ref(null);
 const posts = ref([]);
 const isShowedData = ref(false);
-const { data } = await useAsyncData('posts', async () => {
-  const { data } = await client.from('posts').select();
-  posts.value = data;
-});
-
+const { data } = await client.from('posts').select();
+posts.value = data;
 
 
 const updatePosts = async () => {
