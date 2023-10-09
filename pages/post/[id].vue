@@ -57,17 +57,14 @@ const route = useRoute();
 const client = useSupabaseClient();
 const isShowed = ref(true);
 const posts = ref(null);
+const { data } = await client
+  .from("posts")
+  .select()
+  .eq("id", +route.params.id)
+  .single();
+posts.value = data;
 
-const { data } = await useAsyncData("posts", async () => {
-  const { data } = await client
-    .from("posts")
-    .select()
-    .eq("id", +route.params.id)
-    .single();
-  posts.value = data;
-});
 const closeData = () => {
   isShowed.value = false;
 };
-
 </script>
