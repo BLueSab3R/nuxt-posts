@@ -24,7 +24,6 @@ const isOpenDelete = ref(false);
 const isOpenAdd = ref(false);
 const selectedPost = ref(null);
 const posts = ref([]);
-const isShowedData = ref(false);
 const { data } = await client.from('posts').select();
 posts.value = data;
 const updatePosts = async () => {
