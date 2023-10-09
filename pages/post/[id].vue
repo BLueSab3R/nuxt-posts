@@ -1,4 +1,4 @@
-<template v-if="isShowed">
+<template>
   <div
     class="z-50 fixed flex flex-col items-center justify-center max-h-screen inset-0 overflow-y-auto bg-black bg-opacity-50"
   >
@@ -14,37 +14,37 @@
 
       <ul class="text-xl">
         <li>
-          <h4 class="mr-2">Username: {{ posts.username }}</h4>
+          <h4 class="mr-2">Username: {{ post.username }}</h4>
         </li>
         <li>
-          <h4 class="mr-2">Name: {{ posts.name }}</h4>
+          <h4 class="mr-2">Name: {{ post.name }}</h4>
         </li>
         <li>
-          <h4 class="mr-2">Email: {{ posts.email }}</h4>
+          <h4 class="mr-2">Email: {{ post.email }}</h4>
         </li>
         <li>
-          <h4 class="mr-2">Website: {{ posts.website }}</h4>
+          <h4 class="mr-2">Website: {{ post.website }}</h4>
         </li>
         <li>
-          <h4 class="mr-2">City: {{ posts.city }}</h4>
+          <h4 class="mr-2">City: {{ post.city }}</h4>
         </li>
         <li>
-          <h4 class="mr-2">Phone: {{ posts.phone }}</h4>
+          <h4 class="mr-2">Phone: {{ post.phone }}</h4>
         </li>
         <li>
-          <h4 class="mr-2">Street: {{ posts.street }}</h4>
+          <h4 class="mr-2">Street: {{ post.street }}</h4>
         </li>
         <li>
-          <h4 class="mr-2">Suite: {{ posts.suite }}</h4>
+          <h4 class="mr-2">Suite: {{ post.suite }}</h4>
         </li>
         <li>
-          <h4 class="mr-2">Zipcode: {{ posts.zipcode }}</h4>
+          <h4 class="mr-2">Zipcode: {{ post.zipcode }}</h4>
         </li>
         <li>
-          <h4 class="mr-2">Company name: {{ posts.company_name }}</h4>
+          <h4 class="mr-2">Company name: {{ post.company_name }}</h4>
         </li>
         <li>
-          <h4 class="mr-2">Bs: {{ posts.bs }}</h4>
+          <h4 class="mr-2">Bs: {{ post.bs }}</h4>
         </li>
         <li></li>
       </ul>
@@ -56,13 +56,14 @@
 const route = useRoute();
 const client = useSupabaseClient();
 const isShowed = ref(true);
-const posts = ref(null);
+const post = ref(null);
 const { data } = await client
   .from("posts")
   .select()
   .eq("id", +route.params.id)
   .single();
-posts.value = data;
+console.log(data);
+post.value = data;
 
 const closeData = () => {
   isShowed.value = false;
