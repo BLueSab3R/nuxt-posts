@@ -109,7 +109,7 @@ const updatePost = async () => {
     .select();
   if (!error) {
     emit("updatePosts");
-    emit("closeEdit");
+    emit("closeEdit");  
   } else {
     console.error(error);
   }
