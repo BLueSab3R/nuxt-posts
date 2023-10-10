@@ -99,7 +99,7 @@ const updatePost = async () => {
     formData.value.city ||
     formData.value.phone
   ) {
-    alert("Будь ласка, заповніть всі поля.");
+    alert("Please fill in all fields.");
     return;
   }
   const { error } = await client
