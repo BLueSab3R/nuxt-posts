@@ -94,10 +94,10 @@ const formData = ref({
 const updatePost = async () => {
   if (
     !formData.value.username ||
-    formData.value.name ||
-    formData.value.email ||
-    formData.value.city ||
-    formData.value.phone
+    !formData.value.name ||
+    !formData.value.email ||
+    !formData.value.city ||
+    !formData.value.phone
   ) {
     alert("Please fill in all fields.");
     return;
