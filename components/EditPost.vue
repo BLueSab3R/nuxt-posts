@@ -75,7 +75,13 @@
 <script setup>
 const client = useSupabaseClient();
 const emit = defineEmits(["closeEdit", "updatePosts"]);
-const props = defineProps(["selectedPost"]);
+const props = defineProps({
+  selectedPost: {
+    type: Object,
+    default: null,
+    required: true,
+  },
+});
 const handleBackgroundClick = (event) => {
   if (event.target === event.currentTarget) {
     emit("closeEdit");
@@ -109,7 +115,7 @@ const updatePost = async () => {
     .select();
   if (!error) {
     emit("updatePosts");
-    emit("closeEdit");  
+    emit("closeEdit");
   } else {
     console.error(error);
   }
