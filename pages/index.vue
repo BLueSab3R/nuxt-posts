@@ -50,7 +50,6 @@ const posts = ref([]);
 const { data } = await client.from("posts").select();
 posts.value = data;
 const updatePosts = async () => {
-  console.log("update");
   const { data } = await client.from("posts").select();
   posts.value = data;
 };
